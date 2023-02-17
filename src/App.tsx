@@ -8,6 +8,9 @@ function App() {
 
   const sound = new Audio("upper-cut.mp3")
 
+  const playSound = () => {
+    sound.play()
+  }
 
   return (
     <div className="App">
@@ -15,9 +18,9 @@ function App() {
 
       <img className="chuck"  alt="chuck" src={image}/>
 
-      <button className="button">
-        {/* <i className="fa-solid fa-hand-fist fa-2xl" style={{ fontSize: "200px" }} ></i> */}
-        <i className="fas fa-fist-raised" style={{ fontSize: "50px" }}></i>
+      <button className="button" onClick={playSound}>
+        <div> Karate Chop! </div>
+        <i className="fas fa-fist-raised" style={{ fontSize: "3rem" }}></i>
       </button>
 
     </div>
