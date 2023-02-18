@@ -8,13 +8,39 @@
   width: 5rem;
 }
 
+.quoteBox {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  background-color: #343a40;
+  border-radius: 0.25rem;
+  /* height: 11rem;
+  width: 30rem; */
+  max-width: 300px;
+  margin-top: 1rem;
+  margin-bottom: 1rem;
+  padding: 2rem 2rem;
+}
+
+.quote {
+  color: white;
+  font-size: 16px;
+}
+
 .button {
   display: flex;
   flex-direction: column;
   align-items: center;
-  background-color: white;
-  border-style: solid;
-  border-radius: 30px;
-  width: 10rem;
-  height: 5rem;
+  justify-content: center;
+  background-color: #dc3545;
+  border-style: 1px solid #dc3545;
+  border-radius: 0.25rem;
+  width: 11rem;
+  height: 7rem;
+  padding: 0.5rem 1rem;
+}
+
+.karate {
+  color: white;
 }
