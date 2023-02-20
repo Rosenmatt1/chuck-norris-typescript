@@ -1,4 +1,4 @@
-import { useState } from 'react';
+import { useState, useEffect } from 'react';
 import './App.css';
 import data from "./data.json";
 import image from "./chuck-norris.png";
@@ -6,17 +6,21 @@ import image from "./chuck-norris.png";
 interface Joke {
   id: number,
   joke: string,
-  // categories: string[],
-  // categories: ("nerdy" | "sad")[] | ["nerdy", "sad"] | [];
-  categories: ("nerdy" | "explicit")[],
+  categories: string[],
 }
 
-function App() {
-  const [quotes] = useState(data.jokes);
-  const [quote, setQuote] = useState("")
+// categories: ("nerdy" | "explicit")[] | [],
+// categories: string[],
+// categories: ("nerdy" | "sad")[] | ["nerdy", "sad"] | [];
 
-  const categories = quotes.map(joke => joke.categories);
-  console.log(categories)
+function App() {
+  const [quotes, setQuotes] = useState<Joke[]>([]);
+  const [quote, setQuote] = useState("")
+  // <Joke | "">
+
+  useEffect(() => {
+    setQuotes(data.jokes)
+  }, [])
 
   const sound = new Audio("upper-cut.mp3")
 
