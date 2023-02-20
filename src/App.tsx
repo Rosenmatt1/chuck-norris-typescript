@@ -1,11 +1,22 @@
 import { useState } from 'react';
 import './App.css';
 import data from "./data.json";
-import image from "./chuck-norris.png"
+import image from "./chuck-norris.png";
+
+interface Joke {
+  id: number,
+  joke: string,
+  // categories: string[],
+  // categories: ("nerdy" | "sad")[] | ["nerdy", "sad"] | [];
+  categories: ("nerdy" | "explicit")[],
+}
 
 function App() {
   const [quotes] = useState(data.jokes);
   const [quote, setQuote] = useState("")
+
+  const categories = quotes.map(joke => joke.categories);
+  console.log(categories)
 
   const sound = new Audio("upper-cut.mp3")
 
