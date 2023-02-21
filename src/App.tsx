@@ -8,32 +8,34 @@ interface Joke {
   joke: string,
   categories: string[],
 }
-
 // categories: ("nerdy" | "explicit")[] | [],
 // categories: string[],
 // categories: ("nerdy" | "sad")[] | ["nerdy", "sad"] | [];
 
 function App() {
   const [quotes, setQuotes] = useState<Joke[]>([]);
-  const [quote, setQuote] = useState("")
-  // <Joke | "">
+  const [quote, setQuote] = useState<string>("")
+
 
   useEffect(() => {
     setQuotes(data.jokes)
   }, [])
 
-  const sound = new Audio("upper-cut.mp3")
 
-  const randomQuote = () => {
-    console.log(quotes)
+  type RandomQ = () => void
+
+  const randomQuote: RandomQ = () => {
     const randomNumber = Math.floor(Math.random() * quotes.length);
     setQuote(quotes[randomNumber].joke)
     playSound()
   }
 
+  const sound = new Audio("upper-cut.mp3")
+
   const playSound = () => {
     sound.play()
   }
+
 
   return (
     <div className="App">
