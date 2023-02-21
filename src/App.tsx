@@ -15,6 +15,8 @@ interface Joke {
 function App() {
   const [quotes, setQuotes] = useState<Joke[]>([]);
   const [quote, setQuote] = useState<string>("")
+  const [isNerdyChecked, setIsNerdyChecked] = useState<boolean>(false)
+  const [isExplicitChecked, setisExplicitChecked] = useState<boolean>(false)
 
 
   useEffect(() => {
@@ -36,6 +38,16 @@ function App() {
     sound.play()
   }
 
+  const handlExplicitChange = (e: React.ChangeEvent<HTMLInputElement>) => {
+    setisExplicitChecked(!isExplicitChecked)
+    console.log(e.target)
+  }
+
+  const handleNerdChange = (e: React.ChangeEvent<HTMLInputElement>) => {
+    setIsNerdyChecked(!isNerdyChecked)
+    console.log(e.target)
+  }
+
 
   return (
     <div className="App">
@@ -45,6 +57,14 @@ function App() {
       <img className="chuck" alt="chuck" src={image} />
 
       <div> An app for randomly generating chuck norris quotes. </div>
+
+      <div className="inputs">
+        <label htmlFor="explicitCheckbox"> Show only explicit jokes: </label>
+        <input onChange={(e) => handlExplicitChange(e)} type="checkbox" id="explicitCheckbox" name="explicitCheckbox" value="1" />
+
+        <label htmlFor="nerdyCheckbox"> CShow only nerdy jokes: </label>
+        <input onChange={(e) => handleNerdChange(e)} type="checkbox" id="nerdyheckbox" name="nerdyCheckbox" value="2" />
+      </div>
 
       {(quote.length > 0) && <div className="quoteBox">
         <div className="quote"> {quote} </div>
