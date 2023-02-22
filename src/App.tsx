@@ -48,6 +48,15 @@ function App() {
     console.log(e.target)
   }
 
+  const filteredTags = quotes.filter(tag => tag.categories.includes('nerdy') || tag.categories.includes('explicit'));
+  console.log(filteredTags)
+
+  // const filterJokes = () => {
+  //   if (isNerdyChecked) {
+  //     quotes.filter
+  //   }
+  // }
+
 
   return (
     <div className="App">
