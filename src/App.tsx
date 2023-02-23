@@ -17,6 +17,7 @@ function App() {
   const [quote, setQuote] = useState<string>("")
   const [isNerdyChecked, setIsNerdyChecked] = useState<boolean>(false)
   const [isExplicitChecked, setisExplicitChecked] = useState<boolean>(false)
+  const [filteredJokes, setFilteredJokes] = useState<Joke[]>([]);
 
 
   useEffect(() => {
@@ -48,8 +49,32 @@ function App() {
     console.log(e.target)
   }
 
-  const filteredTags = quotes.filter(tag => tag.categories.includes('nerdy') || tag.categories.includes('explicit'));
-  console.log(filteredTags)
+//   const logic = receivedData.filter(restuarant => {
+//     let searchActivated = true
+//     let genreActivated = true
+//     let stateActivated = true
+
+//     if (search) {
+//         searchActivated = (restuarant.name.toLowerCase().includes(search.toLowerCase()) || restuarant.city.toLowerCase().includes(search.toLowerCase()) || restuarant.genre.toLowerCase().split(',').includes(search.toLowerCase()))
+//     }
+
+//     if (props.chosenGenre.length > 0) {
+//         genreActivated = restuarant.genre.includes(props.chosenGenre)
+//     }
+
+//     if (props.chosenState.length > 0) {
+//         stateActivated = restuarant.state === props.chosenState
+//     }
+
+//     if (searchActivated && stateActivated && genreActivated) return restuarant
+// })
+
+  const filteredBothTags = quotes.filter(tag => tag.categories.includes('nerdy') || tag.categories.includes('explicit'));
+  console.log(filteredBothTags)
+
+  const filteredNerdTags = quotes.filter(tag => tag.categories.includes('nerdy'));
+  const filteredExplicitTags = quotes.filter(tag => tag.categories.includes('explicit'));
+
 
   // const filterJokes = () => {
   //   if (isNerdyChecked) {
