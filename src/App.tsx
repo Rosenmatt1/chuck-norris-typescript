@@ -41,12 +41,13 @@ function App() {
 
   const handlExplicitChange = (e: React.ChangeEvent<HTMLInputElement>) => {
     setisExplicitChecked(!isExplicitChecked)
-    console.log(e.target)
+    // console.log(e.target)
   }
 
   const handleNerdChange = (e: React.ChangeEvent<HTMLInputElement>) => {
     setIsNerdyChecked(!isNerdyChecked)
-    console.log(e.target)
+    console.log(isNerdyChecked)
+    filterJokes()
   }
 
 //   const logic = receivedData.filter(restuarant => {
@@ -69,19 +70,30 @@ function App() {
 //     if (searchActivated && stateActivated && genreActivated) return restuarant
 // })
 
-  const filteredBothTags = quotes.filter(tag => tag.categories.includes('nerdy') || tag.categories.includes('explicit'));
-  console.log(filteredBothTags)
+  // const filteredBothTags = quotes.filter(tag => tag.categories.includes('nerdy') || tag.categories.includes('explicit'));
+  // console.log(filteredBothTags)
 
   const filteredNerdTags = quotes.filter(tag => tag.categories.includes('nerdy'));
   const filteredExplicitTags = quotes.filter(tag => tag.categories.includes('explicit'));
 
+  const filterJokes = () => {
+    let nerdFilter = []
+    let explicitFilter = []
+    let nerdAndExplicitFilter = []
 
-  // const filterJokes = () => {
-  //   if (isNerdyChecked) {
-  //     quotes.filter
-  //   }
-  // }
+    if (isNerdyChecked) {
+      nerdFilter = quotes.filter(joke => joke.categories.includes('nerdy'))
+      console.log(nerdFilter)
+      setFilteredJokes(nerdFilter)
+    }
 
+    if (isExplicitChecked) {
+      explicitFilter = quotes.filter(joke => joke.categories.includes('explicit'))
+      setFilteredJokes(explicitFilter)
+    }
+  }
+
+  // filteredJokes, setFilteredJokes
 
   return (
     <div className="App">
