@@ -10,7 +10,7 @@ interface Joke {
 }
 // categories: ("nerdy" | "explicit")[] | [],
 // categories: string[],
-// categories: ("nerdy" | "sad")[] | ["nerdy", "sad"] | [];
+// categories: ("nerdy" | "explicit")[] | ["nerdy", "explicit"] | [];
 
 function App() {
   const [quotes, setQuotes] = useState<Joke[]>([]);
@@ -39,72 +39,95 @@ function App() {
     sound.play()
   }
 
-  const handlExplicitChange = (e: React.ChangeEvent<HTMLInputElement>) => {
-    e.preventDefault()
-    setisExplicitChecked(!isExplicitChecked)
-    // console.log(isExplicitChecked)
-    filterJokes()
-  }
+  // const handlExplicitChange = (e: React.ChangeEvent<HTMLInputElement>) => {
+  //   e.preventDefault()
+  //   setisExplicitChecked(!isExplicitChecked)
+  //   // console.log(isExplicitChecked)
+  //   filterJokes()
+  // }
 
-  const handleNerdChange = (e: React.ChangeEvent<HTMLInputElement>) => {
-    e.preventDefault()
-    setIsNerdyChecked(!isNerdyChecked)
-    // console.log(isNerdyChecked)
-    filterJokes()
-  }
+  // const handleNerdChange = (e: React.ChangeEvent<HTMLInputElement>) => {
+  //   e.preventDefault()
+  //   setIsNerdyChecked(e.target.checked)
+  //   // console.log(isNerdyChecked)
+  //   filterJokes()
+  // }
 
-  //   const logic = receivedData.filter(restuarant => {
-  //     let searchActivated = true
-  //     let genreActivated = true
-  //     let stateActivated = true
-
-  //     if (search) {
-  //         searchActivated = (restuarant.name.toLowerCase().includes(search.toLowerCase()) || restuarant.city.toLowerCase().includes(search.toLowerCase()) || restuarant.genre.toLowerCase().split(',').includes(search.toLowerCase()))
-  //     }
-
-  //     if (props.chosenGenre.length > 0) {
-  //         genreActivated = restuarant.genre.includes(props.chosenGenre)
-  //     }
-
-  //     if (props.chosenState.length > 0) {
-  //         stateActivated = restuarant.state === props.chosenState
-  //     }
-
-  //     if (searchActivated && stateActivated && genreActivated) return restuarant
-  // })
 
   // const filteredBothTags = quotes.filter(tag => tag.categories.includes('nerdy') || tag.categories.includes('explicit'));
   // console.log(filteredBothTags)
 
-  const filteredNerdTags = quotes.filter(tag => tag.categories.includes('nerdy'));
-  const filteredExplicitTags = quotes.filter(tag => tag.categories.includes('explicit'));
+  // const filteredNerdTags = quotes.filter(tag => tag.categories.includes('nerdy'));
+  // const filteredExplicitTags = quotes.filter(tag => tag.categories.includes('explicit'));
 
-  const filterJokes = () => {
-    let nerdFilter = []
-    let explicitFilter = []
-    let nerdAndExplicitFilter = []
+  // const filteredJokes = quotes.filter(joke => {
+  //   let nerdFilter = true
+  //   let explicitFilter = true
+  //   let nerdAndExplicitFilter = true
+
+  //   if (isExplicitChecked && isNerdyChecked) {
+  //     nerdAndExplicitFilter = quotes.filter(joke => joke.categories.includes('explicit'))
+  //   }
+
+  //   else if (isNerdyChecked) {
+  //     nerdFilter = quotes.filter(joke => joke.categories.includes('nerdy'))
+  //   }
+
+  //   else if (isExplicitChecked) {
+  //     explicitFilter = quotes.filter(joke => joke.categories.includes('explicit'))
+  //   }
+
+  //   if (nerdAndExplicitFilter && stateActivated && genreActivated) return restuarant
+  // })
+
+  useEffect(() => {
 
     if (isExplicitChecked && isNerdyChecked) {
-      nerdAndExplicitFilter = quotes.filter(joke => joke.categories.includes('explicit'))
-      console.log("both", nerdAndExplicitFilter)
-      setFilteredJokes(nerdAndExplicitFilter)
-      return
+      console.log("BOTH!!!!")
     }
-    else if (isNerdyChecked) {
-      nerdFilter = quotes.filter(joke => joke.categories.includes('nerdy'))
-      console.log("nerds", nerdFilter)
-      setFilteredJokes(nerdFilter)
-      return
-    }
-    else if (isExplicitChecked) {
-      explicitFilter = quotes.filter(joke => joke.categories.includes('explicit'))
-      console.log("explicit", explicitFilter)
-      setFilteredJokes(explicitFilter)
-      return
-    }
-  }
 
-  console.log("filtered jokes",filteredJokes)
+    else if (isNerdyChecked) {
+      console.log("nerds!!!")
+    }
+
+    else if (isExplicitChecked) {
+      console.log("explicit!!!")
+    }
+    else {
+      console.log("REGULAR")
+    }
+
+
+  }, [isNerdyChecked, isExplicitChecked])
+
+  // const filterJokes = () => {
+  //   let nerdFilter = []
+  //   let explicitFilter = []
+  //   let nerdAndExplicitFilter = []
+
+  //   console.log("filter jokes fired")
+
+  //   if (isExplicitChecked && isNerdyChecked) {
+  //     nerdAndExplicitFilter = quotes.filter(joke => joke.categories.includes('explicit') || joke.categories.includes('nerdy'))
+  //     console.log("both", nerdAndExplicitFilter)
+  //     setFilteredJokes(nerdAndExplicitFilter)
+  //     return
+  //   }
+  //   else if (isNerdyChecked) {
+  //     nerdFilter = quotes.filter(joke => joke.categories.includes('nerdy'))
+  //     console.log("nerds", nerdFilter)
+  //     setFilteredJokes(nerdFilter)
+  //     return
+  //   }
+  //   else if (isExplicitChecked) {
+  //     explicitFilter = quotes.filter(joke => joke.categories.includes('explicit'))
+  //     console.log("explicit", explicitFilter)
+  //     setFilteredJokes(explicitFilter)
+  //     return
+  //   }
+  // }
+
+  // console.log("filtered jokes", filteredJokes)
 
   return (
     <div className="App">
@@ -116,11 +139,14 @@ function App() {
       <div> An app for randomly generating chuck norris quotes. </div>
 
       <div className="inputs">
-        <label htmlFor="explicitCheckbox"> Show only explicit jokes: </label>
-        <input onChange={(e) => handlExplicitChange(e)} checked={isExplicitChecked} type="checkbox" id="explicitCheckbox" name="explicitCheckbox" value="1" />
 
-        <label htmlFor="nerdyCheckbox"> CShow only nerdy jokes: </label>
-        <input onChange={(e) => handleNerdChange(e)} checked={isNerdyChecked} type="checkbox" id="nerdyheckbox" name="nerdyCheckbox" value="2" />
+        <label htmlFor="explicitCheckbox"> Show only explicit jokes: </label>
+        <input onChange={() => setisExplicitChecked(!isExplicitChecked)} checked={isExplicitChecked}  type="checkbox" id="explicitCheckbox" name="explicitCheckbox" value="1" />
+        <p>Explicit Checkbox is {isExplicitChecked ? 'checked' : 'unchecked'}</p>
+
+        <label htmlFor="nerdyCheckbox"> Show only nerdy jokes: </label>
+        <input onChange={() => setIsNerdyChecked(!isNerdyChecked)} checked={isNerdyChecked} type="checkbox" id="nerdyheckbox" name="nerdyCheckbox" value="2" />
+        <p>Nerdy Checkbox is {isNerdyChecked ? 'checked' : 'unchecked'}</p>
       </div>
 
       {(quote.length > 0) && <div className="quoteBox">
