@@ -40,35 +40,38 @@ function App() {
   }
 
   const handlExplicitChange = (e: React.ChangeEvent<HTMLInputElement>) => {
+    e.preventDefault()
     setisExplicitChecked(!isExplicitChecked)
-    // console.log(e.target)
-  }
-
-  const handleNerdChange = (e: React.ChangeEvent<HTMLInputElement>) => {
-    setIsNerdyChecked(!isNerdyChecked)
-    console.log(isNerdyChecked)
+    // console.log(isExplicitChecked)
     filterJokes()
   }
 
-//   const logic = receivedData.filter(restuarant => {
-//     let searchActivated = true
-//     let genreActivated = true
-//     let stateActivated = true
+  const handleNerdChange = (e: React.ChangeEvent<HTMLInputElement>) => {
+    e.preventDefault()
+    setIsNerdyChecked(!isNerdyChecked)
+    // console.log(isNerdyChecked)
+    filterJokes()
+  }
 
-//     if (search) {
-//         searchActivated = (restuarant.name.toLowerCase().includes(search.toLowerCase()) || restuarant.city.toLowerCase().includes(search.toLowerCase()) || restuarant.genre.toLowerCase().split(',').includes(search.toLowerCase()))
-//     }
+  //   const logic = receivedData.filter(restuarant => {
+  //     let searchActivated = true
+  //     let genreActivated = true
+  //     let stateActivated = true
 
-//     if (props.chosenGenre.length > 0) {
-//         genreActivated = restuarant.genre.includes(props.chosenGenre)
-//     }
+  //     if (search) {
+  //         searchActivated = (restuarant.name.toLowerCase().includes(search.toLowerCase()) || restuarant.city.toLowerCase().includes(search.toLowerCase()) || restuarant.genre.toLowerCase().split(',').includes(search.toLowerCase()))
+  //     }
 
-//     if (props.chosenState.length > 0) {
-//         stateActivated = restuarant.state === props.chosenState
-//     }
+  //     if (props.chosenGenre.length > 0) {
+  //         genreActivated = restuarant.genre.includes(props.chosenGenre)
+  //     }
 
-//     if (searchActivated && stateActivated && genreActivated) return restuarant
-// })
+  //     if (props.chosenState.length > 0) {
+  //         stateActivated = restuarant.state === props.chosenState
+  //     }
+
+  //     if (searchActivated && stateActivated && genreActivated) return restuarant
+  // })
 
   // const filteredBothTags = quotes.filter(tag => tag.categories.includes('nerdy') || tag.categories.includes('explicit'));
   // console.log(filteredBothTags)
@@ -81,19 +84,27 @@ function App() {
     let explicitFilter = []
     let nerdAndExplicitFilter = []
 
-    if (isNerdyChecked) {
-      nerdFilter = quotes.filter(joke => joke.categories.includes('nerdy'))
-      console.log(nerdFilter)
-      setFilteredJokes(nerdFilter)
+    if (isExplicitChecked && isNerdyChecked) {
+      nerdAndExplicitFilter = quotes.filter(joke => joke.categories.includes('explicit'))
+      console.log("both", nerdAndExplicitFilter)
+      setFilteredJokes(nerdAndExplicitFilter)
+      return
     }
-
-    if (isExplicitChecked) {
+    else if (isNerdyChecked) {
+      nerdFilter = quotes.filter(joke => joke.categories.includes('nerdy'))
+      console.log("nerds", nerdFilter)
+      setFilteredJokes(nerdFilter)
+      return
+    }
+    else if (isExplicitChecked) {
       explicitFilter = quotes.filter(joke => joke.categories.includes('explicit'))
+      console.log("explicit", explicitFilter)
       setFilteredJokes(explicitFilter)
+      return
     }
   }
 
-  // filteredJokes, setFilteredJokes
+  console.log("filtered jokes",filteredJokes)
 
   return (
     <div className="App">
@@ -106,10 +117,10 @@ function App() {
 
       <div className="inputs">
         <label htmlFor="explicitCheckbox"> Show only explicit jokes: </label>
-        <input onChange={(e) => handlExplicitChange(e)} type="checkbox" id="explicitCheckbox" name="explicitCheckbox" value="1" />
+        <input onChange={(e) => handlExplicitChange(e)} checked={isExplicitChecked} type="checkbox" id="explicitCheckbox" name="explicitCheckbox" value="1" />
 
         <label htmlFor="nerdyCheckbox"> CShow only nerdy jokes: </label>
-        <input onChange={(e) => handleNerdChange(e)} type="checkbox" id="nerdyheckbox" name="nerdyCheckbox" value="2" />
+        <input onChange={(e) => handleNerdChange(e)} checked={isNerdyChecked} type="checkbox" id="nerdyheckbox" name="nerdyCheckbox" value="2" />
       </div>
 
       {(quote.length > 0) && <div className="quoteBox">
