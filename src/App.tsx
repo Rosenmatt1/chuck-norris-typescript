@@ -21,6 +21,7 @@ function App() {
 
 
   useEffect(() => {
+    //This is where the fetch would be
     setQuotes(data.jokes)
   }, [])
 
@@ -29,7 +30,12 @@ function App() {
 
   const randomQuote: RandomQ = () => {
     const randomNumber = Math.floor(Math.random() * quotes.length);
-    setQuote(quotes[randomNumber].joke)
+
+    if (filteredJokes.length > 0) {
+      setQuote(filteredJokes[randomNumber].joke)
+    } else {
+      setQuote(quotes[randomNumber].joke)
+    }
     playSound()
   }
 
@@ -53,81 +59,28 @@ function App() {
   //   filterJokes()
   // }
 
-
-  // const filteredBothTags = quotes.filter(tag => tag.categories.includes('nerdy') || tag.categories.includes('explicit'));
-  // console.log(filteredBothTags)
-
-  // const filteredNerdTags = quotes.filter(tag => tag.categories.includes('nerdy'));
-  // const filteredExplicitTags = quotes.filter(tag => tag.categories.includes('explicit'));
-
-  // const filteredJokes = quotes.filter(joke => {
-  //   let nerdFilter = true
-  //   let explicitFilter = true
-  //   let nerdAndExplicitFilter = true
-
-  //   if (isExplicitChecked && isNerdyChecked) {
-  //     nerdAndExplicitFilter = quotes.filter(joke => joke.categories.includes('explicit'))
-  //   }
-
-  //   else if (isNerdyChecked) {
-  //     nerdFilter = quotes.filter(joke => joke.categories.includes('nerdy'))
-  //   }
-
-  //   else if (isExplicitChecked) {
-  //     explicitFilter = quotes.filter(joke => joke.categories.includes('explicit'))
-  //   }
-
-  //   if (nerdAndExplicitFilter && stateActivated && genreActivated) return restuarant
-  // })
-
   useEffect(() => {
 
     if (isExplicitChecked && isNerdyChecked) {
-      console.log("BOTH!!!!")
+      setFilteredJokes(quotes.filter(joke => joke.categories.includes('explicit') || joke.categories.includes('nerdy')))
+      // console.log("BOTH!!!!", filteredJokes)
     }
-
     else if (isNerdyChecked) {
-      console.log("nerds!!!")
+      setFilteredJokes(quotes.filter(joke => joke.categories.includes('nerdy')))
+      // console.log("nerds!!!", filteredJokes)
     }
-
     else if (isExplicitChecked) {
-      console.log("explicit!!!")
+      setFilteredJokes(quotes.filter(joke => joke.categories.includes('explicit')))
+      // console.log("explicit!!!", filteredJokes)
     }
     else {
+      setFilteredJokes([])
       console.log("REGULAR")
     }
-
-
   }, [isNerdyChecked, isExplicitChecked])
 
-  // const filterJokes = () => {
-  //   let nerdFilter = []
-  //   let explicitFilter = []
-  //   let nerdAndExplicitFilter = []
 
-  //   console.log("filter jokes fired")
-
-  //   if (isExplicitChecked && isNerdyChecked) {
-  //     nerdAndExplicitFilter = quotes.filter(joke => joke.categories.includes('explicit') || joke.categories.includes('nerdy'))
-  //     console.log("both", nerdAndExplicitFilter)
-  //     setFilteredJokes(nerdAndExplicitFilter)
-  //     return
-  //   }
-  //   else if (isNerdyChecked) {
-  //     nerdFilter = quotes.filter(joke => joke.categories.includes('nerdy'))
-  //     console.log("nerds", nerdFilter)
-  //     setFilteredJokes(nerdFilter)
-  //     return
-  //   }
-  //   else if (isExplicitChecked) {
-  //     explicitFilter = quotes.filter(joke => joke.categories.includes('explicit'))
-  //     console.log("explicit", explicitFilter)
-  //     setFilteredJokes(explicitFilter)
-  //     return
-  //   }
-  // }
-
-  // console.log("filtered jokes", filteredJokes)
+  console.log("filtered jokes", filteredJokes)
 
   return (
     <div className="App">
