@@ -29,7 +29,13 @@ function App() {
   type RandomQ = () => void
 
   const randomQuote: RandomQ = () => {
-    const randomNumber = Math.floor(Math.random() * quotes.length);
+    let randomNumber = null
+
+    if (filteredJokes.length > 0) {
+      randomNumber = Math.floor(Math.random() * filteredJokes.length);
+    } else {
+      randomNumber = Math.floor(Math.random() * quotes.length);
+    }
 
     if (filteredJokes.length > 0) {
       setQuote(filteredJokes[randomNumber].joke)
@@ -92,14 +98,11 @@ function App() {
       <div> An app for randomly generating chuck norris quotes. </div>
 
       <div className="inputs">
-
         <label htmlFor="explicitCheckbox"> Show only explicit jokes: </label>
-        <input onChange={() => setisExplicitChecked(!isExplicitChecked)} checked={isExplicitChecked}  type="checkbox" id="explicitCheckbox" name="explicitCheckbox" value="1" />
-        <p>Explicit Checkbox is {isExplicitChecked ? 'checked' : 'unchecked'}</p>
+        <input className="explicit" onChange={() => setisExplicitChecked(!isExplicitChecked)} checked={isExplicitChecked} type="checkbox" id="explicitCheckbox" name="explicitCheckbox" value="1" />
 
         <label htmlFor="nerdyCheckbox"> Show only nerdy jokes: </label>
         <input onChange={() => setIsNerdyChecked(!isNerdyChecked)} checked={isNerdyChecked} type="checkbox" id="nerdyheckbox" name="nerdyCheckbox" value="2" />
-        <p>Nerdy Checkbox is {isNerdyChecked ? 'checked' : 'unchecked'}</p>
       </div>
 
       {(quote.length > 0) && <div className="quoteBox">

@@ -13,6 +13,11 @@
   flex-direction: row;
   /* align-items: center; */
   justify-content: center;
+  margin: 1rem;
+}
+
+.explicit {
+  margin-right: 1rem;
 }
 
 .quoteBox {
@@ -22,10 +27,7 @@
   justify-content: center;
   background-color: #343a40;
   border-radius: 0.25rem;
-  /* height: 11rem;
-  width: 30rem; */
   max-width: 300px;
-  margin-top: 1rem;
   margin-bottom: 1rem;
   padding: 1.5rem 1.5rem;
   text-align: center;
@@ -45,8 +47,6 @@
   border-color: #bd2130;
   border-style: 1px solid #dc3545;
   border-radius: 0.3rem;
-  /* width: 11rem;
-  height: 7rem; */
   padding: .5rem .5rem;
 }
 
