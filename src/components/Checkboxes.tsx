@@ -1,23 +1,23 @@
-import React, { useState } from "react";
+import React from "react";
 
 
 type Props = {
   isNerdyChecked: boolean,
   isExplicitChecked: boolean,
+  setIsNerdyChecked: (val: boolean) => void;
+  setisExplicitChecked: (val: boolean) => void;
 }
 
 
 const Checkboxes: React.FC<Props> = (props) => {
-  console.log(props.isNerdyChecked)
   return (
-    <div> Hello Chicken </div>
-    // <div className="inputs">
-    //   <label htmlFor="explicitCheckbox"> Show only explicit jokes: </label>
-    //   <input className="explicit" onChange={() => setisExplicitChecked(!props.isExplicitChecked)} checked={props.isExplicitChecked} type="checkbox" id="explicitCheckbox" name="explicitCheckbox" value="1" />
+    <div className="inputs">
+      <label htmlFor="explicitCheckbox"> Show only explicit jokes: </label>
+      <input className="explicit" onChange={() => props.setisExplicitChecked(!props.isExplicitChecked)} checked={props.isExplicitChecked} type="checkbox" id="explicitCheckbox" name="explicitCheckbox" value="1" />
 
-    //   <label htmlFor="nerdyCheckbox"> Show only nerdy jokes: </label>
-    //   <input onChange={() => setIsNerdyChecked(!props.isNerdyChecked)} checked={props.isNerdyChecked} type="checkbox" id="nerdyheckbox" name="nerdyCheckbox" value="2" />
-    // </div>
+      <label htmlFor="nerdyCheckbox"> Show only nerdy jokes: </label>
+      <input onChange={() => props.setIsNerdyChecked(!props.isNerdyChecked)} checked={props.isNerdyChecked} type="checkbox" id="nerdyheckbox" name="nerdyCheckbox" value="2" />
+    </div>
   )
 };
 

@@ -22,17 +22,6 @@ const App: React.FC = () => {
   const [filteredJokes, setFilteredJokes] = useState<Joke[]>([]);
 
 
-  // const CheckboxProps: MyComponentProps = {
-  //   isExplicitChecked: setisExplicitChecked,
-  //   isNerdyChecked: setIsNerdyChecked,
-  // };
-
-  interface Props {
-    nerd: boolean,
-    explicit: boolean,
-  }
-
-
   useEffect(() => {
     //This is where the fetch would be
     setQuotes(data.jokes)
@@ -107,8 +96,7 @@ const App: React.FC = () => {
 
       <div> An app for randomly generating chuck norris quotes. </div>
 
-      {/* nerdProp={isNerdyChecked} */}
-      <Checkboxes isNerdyChecked={isNerdyChecked} isExplicitChecked={isExplicitChecked} />
+      <Checkboxes isNerdyChecked={isNerdyChecked} isExplicitChecked={isExplicitChecked} setIsNerdyChecked={setIsNerdyChecked} setisExplicitChecked={setisExplicitChecked} />
 
       {(quote.length > 0) && <div className="quoteBox">
         <div className="quote"> {quote} </div>
