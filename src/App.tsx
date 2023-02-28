@@ -2,9 +2,10 @@ import { useState, useEffect } from 'react';
 import './App.css';
 import data from "./data.json";
 import image from "./chuck-norris.png";
+import Checkboxes from "./components/Checkboxes"
 
 interface Joke {
-  id: number,
+  readonly id: number,
   joke: string,
   categories: string[],
 }
@@ -12,12 +13,24 @@ interface Joke {
 // categories: string[],
 // categories: ("nerdy" | "explicit")[] | ["nerdy", "explicit"] | [];
 
-function App() {
+
+const App: React.FC = () => {
   const [quotes, setQuotes] = useState<Joke[]>([]);
   const [quote, setQuote] = useState<string>("")
   const [isNerdyChecked, setIsNerdyChecked] = useState<boolean>(false)
   const [isExplicitChecked, setisExplicitChecked] = useState<boolean>(false)
   const [filteredJokes, setFilteredJokes] = useState<Joke[]>([]);
+
+
+  // const CheckboxProps: MyComponentProps = {
+  //   isExplicitChecked: setisExplicitChecked,
+  //   isNerdyChecked: setIsNerdyChecked,
+  // };
+
+  interface Props {
+    nerd: boolean,
+    explicit: boolean,
+  }
 
 
   useEffect(() => {
@@ -66,7 +79,6 @@ function App() {
   // }
 
   useEffect(() => {
-
     if (isExplicitChecked && isNerdyChecked) {
       setFilteredJokes(quotes.filter(joke => joke.categories.includes('explicit') || joke.categories.includes('nerdy')))
       // console.log("BOTH!!!!", filteredJokes)
@@ -86,8 +98,6 @@ function App() {
   }, [isNerdyChecked, isExplicitChecked])
 
 
-  console.log("filtered jokes", filteredJokes)
-
   return (
     <div className="App">
 
@@ -97,13 +107,8 @@ function App() {
 
       <div> An app for randomly generating chuck norris quotes. </div>
 
-      <div className="inputs">
-        <label htmlFor="explicitCheckbox"> Show only explicit jokes: </label>
-        <input className="explicit" onChange={() => setisExplicitChecked(!isExplicitChecked)} checked={isExplicitChecked} type="checkbox" id="explicitCheckbox" name="explicitCheckbox" value="1" />
-
-        <label htmlFor="nerdyCheckbox"> Show only nerdy jokes: </label>
-        <input onChange={() => setIsNerdyChecked(!isNerdyChecked)} checked={isNerdyChecked} type="checkbox" id="nerdyheckbox" name="nerdyCheckbox" value="2" />
-      </div>
+      {/* nerdProp={isNerdyChecked} */}
+      <Checkboxes isNerdyChecked={isNerdyChecked} isExplicitChecked={isExplicitChecked} />
 
       {(quote.length > 0) && <div className="quoteBox">
         <div className="quote"> {quote} </div>
