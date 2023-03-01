@@ -14,19 +14,14 @@ interface Joke {
 // categories: string[],
 // categories: ("nerdy" | "explicit")[] | ["nerdy", "explicit"] | [];
 
-
-// const MyContext = createContext({ name: 'John', age: 30 });
-
 export interface MyContextType {
   quote: string;
-  // setCount: React.Dispatch<React.SetStateAction<number>>;
+  // setQuotes: React.Dispatch<React.SetStateAction<number>>;
 }
-
-// const MyContext = createContext();
 
 export const MyContext = createContext<MyContextType>({
   quote: "",
-  // setCount: () => {},
+  // setQuotes: () => {},
 });
 
 
@@ -97,7 +92,7 @@ const App: React.FC = () => {
     }
     else {
       setFilteredJokes([])
-      console.log("REGULAR")
+      // console.log("REGULAR")
     }
   }, [isNerdyChecked, isExplicitChecked])
 
@@ -114,11 +109,7 @@ const App: React.FC = () => {
 
         <Checkboxes isNerdyChecked={isNerdyChecked} isExplicitChecked={isExplicitChecked} setIsNerdyChecked={setIsNerdyChecked} setisExplicitChecked={setisExplicitChecked} />
 
-        {(quote.length > 0) && <div className="quoteBox">
-          <div className="quote"> {quote} </div>
-        </div>}
-        
-        <QuoteBox/>
+        <QuoteBox />
 
         <button className="button" onClick={randomQuote}>
           <div className="karate"> Karate Chop! </div>
