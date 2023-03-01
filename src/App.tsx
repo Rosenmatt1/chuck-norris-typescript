@@ -1,8 +1,9 @@
-import { useState, useEffect } from 'react';
+import { useState, useEffect, createContext } from 'react';
 import './App.css';
 import data from "./data.json";
 import image from "./chuck-norris.png";
-import Checkboxes from "./components/Checkboxes"
+import Checkboxes from "./components/Checkboxes";
+import QuoteBox from "./components/QuoteBox";
 
 interface Joke {
   readonly id: number,
@@ -12,6 +13,21 @@ interface Joke {
 // categories: ("nerdy" | "explicit")[] | [],
 // categories: string[],
 // categories: ("nerdy" | "explicit")[] | ["nerdy", "explicit"] | [];
+
+
+// const MyContext = createContext({ name: 'John', age: 30 });
+
+export interface MyContextType {
+  quote: string;
+  // setCount: React.Dispatch<React.SetStateAction<number>>;
+}
+
+// const MyContext = createContext();
+
+export const MyContext = createContext<MyContextType>({
+  quote: "",
+  // setCount: () => {},
+});
 
 
 const App: React.FC = () => {
@@ -87,26 +103,30 @@ const App: React.FC = () => {
 
 
   return (
-    <div className="App">
+    <MyContext.Provider value={{ quote }}>
+      <div className="App">
 
-      <h1> Hello Chuck! </h1>
+        <h1> Hello Chuck! </h1>
 
-      <img className="chuck" alt="chuck" src={image} />
+        <img className="chuck" alt="chuck" src={image} />
 
-      <div> An app for randomly generating chuck norris quotes. </div>
+        <div> An app for randomly generating chuck norris quotes. </div>
 
-      <Checkboxes isNerdyChecked={isNerdyChecked} isExplicitChecked={isExplicitChecked} setIsNerdyChecked={setIsNerdyChecked} setisExplicitChecked={setisExplicitChecked} />
+        <Checkboxes isNerdyChecked={isNerdyChecked} isExplicitChecked={isExplicitChecked} setIsNerdyChecked={setIsNerdyChecked} setisExplicitChecked={setisExplicitChecked} />
 
-      {(quote.length > 0) && <div className="quoteBox">
-        <div className="quote"> {quote} </div>
-      </div>}
+        {(quote.length > 0) && <div className="quoteBox">
+          <div className="quote"> {quote} </div>
+        </div>}
+        
+        <QuoteBox/>
 
-      <button className="button" onClick={randomQuote}>
-        <div className="karate"> Karate Chop! </div>
-        <i className="fas fa-fist-raised fist" style={{ fontSize: "3rem", color: "white" }}></i>
-      </button>
+        <button className="button" onClick={randomQuote}>
+          <div className="karate"> Karate Chop! </div>
+          <i className="fas fa-fist-raised fist" style={{ fontSize: "3rem", color: "white" }}></i>
+        </button>
 
-    </div>
+      </div>
+    </MyContext.Provider>
   );
 }
 
