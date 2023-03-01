@@ -28,9 +28,7 @@ const App: React.FC = () => {
   }, [])
 
 
-  type RandomQ = () => void
-
-  const randomQuote: RandomQ = () => {
+  const randomQuote = () => {
     let randomNumber = null
 
     if (filteredJokes.length > 0) {
@@ -47,7 +45,8 @@ const App: React.FC = () => {
     playSound()
   }
 
-  const sound = new Audio("upper-cut.mp3")
+
+  const sound: HTMLAudioElement = new Audio("upper-cut.mp3")
 
   const playSound = () => {
     sound.play()
