@@ -1,4 +1,4 @@
-import { useState, useEffect, createContext } from 'react';
+import { useState, useEffect, createContext, useReducer } from 'react';
 import './App.css';
 import data from "./data.json";
 import image from "./chuck-norris.png";
@@ -24,6 +24,26 @@ export const MyContext = createContext<MyContextType>({
   // setQuotes: () => {},
 });
 
+const initialState = {
+  count: 0
+};
+
+const ActionTypes = {
+  INCREMENT: "INCREMENT",
+  DECREMENT: "DECREMENT"
+};
+
+function reducer(state, action) {
+  switch (action.type) {
+    case ActionTypes.INCREMENT:
+      return { ...state, count: state.count + 1 };
+    case ActionTypes.DECREMENT:
+      return { ...state, count: state.count - 1 };
+    default:
+      throw new Error();
+  }
+}
+
 
 const App: React.FC = () => {
   const [quotes, setQuotes] = useState<Joke[]>([]);
@@ -31,6 +51,7 @@ const App: React.FC = () => {
   const [isNerdyChecked, setIsNerdyChecked] = useState<boolean>(false)
   const [isExplicitChecked, setisExplicitChecked] = useState<boolean>(false)
   const [filteredJokes, setFilteredJokes] = useState<Joke[]>([]);
+  const [state, dispatch] = useReducer(reducer, initialState);
 
 
   useEffect(() => {
@@ -115,6 +136,8 @@ const App: React.FC = () => {
           <div className="karate"> Karate Chop! </div>
           <i className="fas fa-fist-raised fist" style={{ fontSize: "3rem", color: "white" }}></i>
         </button>
+
+        {/* <ChildComponent dispatch={dispatch} /> */}
 
       </div>
     </MyContext.Provider>
