@@ -1,9 +1,6 @@
 
-import { useReducer } from 'react';
-
-
-
-
+import { useReducer} from 'react';
+import { Action } from '../App';
 
 // function ChildComponent({ dispatch }) {
 //   const handleIncrement = () => {
@@ -21,3 +18,24 @@ import { useReducer } from 'react';
 //     </div>
 //   );
 // }
+
+interface ChildProps {
+  dispatch: React.Dispatch<Action>;
+}
+
+function ChildComponent({ dispatch }: ChildProps) {
+  const handleIncrement = () => {
+    dispatch({ type: "INCREMENT" });
+  };
+
+  const handleDecrement = () => {
+    dispatch({ type: "DECREMENT" });
+  };
+
+  return (
+    <div>
+      <button onClick={handleIncrement}>+</button>
+      <button onClick={handleDecrement}>-</button>
+    </div>
+  );
+}

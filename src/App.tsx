@@ -24,20 +24,45 @@ export const MyContext = createContext<MyContextType>({
   // setQuotes: () => {},
 });
 
-const initialState = {
-  count: 0
-};
+// const initialState = {
+//   count: 0
+// };
 
-const ActionTypes = {
-  INCREMENT: "INCREMENT",
-  DECREMENT: "DECREMENT"
-};
+// const ActionTypes = {
+//   INCREMENT: "INCREMENT",
+//   DECREMENT: "DECREMENT"
+// };
 
-function reducer(state, action) {
+// function reducer(state, action) {
+//   switch (action.type) {
+//     case ActionTypes.INCREMENT:
+//       return { ...state, count: state.count + 1 };
+//     case ActionTypes.DECREMENT:
+//       return { ...state, count: state.count - 1 };
+//     default:
+//       throw new Error();
+//   }
+// }
+
+interface State {
+  count: number;
+}
+
+interface IncrementAction {
+  type: "INCREMENT";
+}
+
+interface DecrementAction {
+  type: "DECREMENT";
+}
+
+export type Action = IncrementAction | DecrementAction;
+
+function reducer(state: State, action: Action): State {
   switch (action.type) {
-    case ActionTypes.INCREMENT:
+    case "INCREMENT":
       return { ...state, count: state.count + 1 };
-    case ActionTypes.DECREMENT:
+    case "DECREMENT":
       return { ...state, count: state.count - 1 };
     default:
       throw new Error();
@@ -51,7 +76,8 @@ const App: React.FC = () => {
   const [isNerdyChecked, setIsNerdyChecked] = useState<boolean>(false)
   const [isExplicitChecked, setisExplicitChecked] = useState<boolean>(false)
   const [filteredJokes, setFilteredJokes] = useState<Joke[]>([]);
-  const [state, dispatch] = useReducer(reducer, initialState);
+  // const [state, dispatch] = useReducer(reducer, initialState);
+  const [state, dispatch] = useReducer(reducer, { count: 0 });
 
 
   useEffect(() => {
