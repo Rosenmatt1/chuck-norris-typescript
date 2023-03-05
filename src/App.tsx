@@ -4,6 +4,7 @@ import data from "./data.json";
 import image from "./chuck-norris.png";
 import Checkboxes from "./components/Checkboxes";
 import QuoteBox from "./components/QuoteBox";
+import OutOfJokes from "./components/OutOfJokes";
 
 interface Joke {
   readonly id: number,
@@ -24,9 +25,9 @@ export const MyContext = createContext<MyContextType>({
   // setQuotes: () => {},
 });
 
-// const initialState = {
-//   count: 0
-// };
+const initialState = {
+  count: 0
+};
 
 // const ActionTypes = {
 //   INCREMENT: "INCREMENT",
@@ -77,7 +78,7 @@ const App: React.FC = () => {
   const [isExplicitChecked, setisExplicitChecked] = useState<boolean>(false)
   const [filteredJokes, setFilteredJokes] = useState<Joke[]>([]);
   // const [state, dispatch] = useReducer(reducer, initialState);
-  const [state, dispatch] = useReducer(reducer, { count: 0 });
+  const [state, dispatch] = useReducer(reducer, initialState);
 
 
   useEffect(() => {
@@ -163,7 +164,9 @@ const App: React.FC = () => {
           <i className="fas fa-fist-raised fist" style={{ fontSize: "3rem", color: "white" }}></i>
         </button>
 
-        {/* <ChildComponent dispatch={dispatch} /> */}
+        <OutOfJokes dispatch={dispatch} />
+
+        <h1>Count: {state.count}</h1>
 
       </div>
     </MyContext.Provider>

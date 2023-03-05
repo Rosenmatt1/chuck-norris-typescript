@@ -23,7 +23,9 @@ interface ChildProps {
   dispatch: React.Dispatch<Action>;
 }
 
-function ChildComponent({ dispatch }: ChildProps) {
+
+function OutOfJokes({ dispatch }: ChildProps) {
+
   const handleIncrement = () => {
     dispatch({ type: "INCREMENT" });
   };
@@ -32,10 +34,15 @@ function ChildComponent({ dispatch }: ChildProps) {
     dispatch({ type: "DECREMENT" });
   };
 
+  // console.log("Child state", state)
+
   return (
     <div>
       <button onClick={handleIncrement}>+</button>
       <button onClick={handleDecrement}>-</button>
+      {/* <h1>Count: {state.count}</h1> */}
     </div>
   );
 }
+
+export default OutOfJokes
