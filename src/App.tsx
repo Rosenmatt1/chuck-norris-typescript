@@ -6,6 +6,7 @@ import Checkboxes from "./components/Checkboxes";
 import QuoteBox from "./components/QuoteBox";
 import OutOfJokes from "./components/OutOfJokes";
 
+
 interface Joke {
   readonly id: number,
   joke: string,
@@ -14,6 +15,7 @@ interface Joke {
 // categories: ("nerdy" | "explicit")[] | [],
 // categories: string[],
 // categories: ("nerdy" | "explicit")[] | ["nerdy", "explicit"] | [];
+
 
 export interface MyContextType {
   quote: string;
@@ -25,28 +27,15 @@ export const MyContext = createContext<MyContextType>({
   // setQuotes: () => {},
 });
 
+
 const initialState = {
-  count: 0
+  count: 0,
+  filterArray: [],
 };
-
-// const ActionTypes = {
-//   INCREMENT: "INCREMENT",
-//   DECREMENT: "DECREMENT"
-// };
-
-// function reducer(state, action) {
-//   switch (action.type) {
-//     case ActionTypes.INCREMENT:
-//       return { ...state, count: state.count + 1 };
-//     case ActionTypes.DECREMENT:
-//       return { ...state, count: state.count - 1 };
-//     default:
-//       throw new Error();
-//   }
-// }
 
 interface State {
   count: number;
+  filterArray: Joke[],
 }
 
 interface IncrementAction {
@@ -57,18 +46,11 @@ interface DecrementAction {
   type: "DECREMENT";
 }
 
-export type Action = IncrementAction | DecrementAction;
-
-function reducer(state: State, action: Action): State {
-  switch (action.type) {
-    case "INCREMENT":
-      return { ...state, count: state.count + 1 };
-    case "DECREMENT":
-      return { ...state, count: state.count - 1 };
-    default:
-      throw new Error();
-  }
+interface FilterJokes {
+  type: "FILTER";
 }
+
+export type Action = IncrementAction | DecrementAction | FilterJokes;
 
 
 const App: React.FC = () => {
@@ -77,7 +59,6 @@ const App: React.FC = () => {
   const [isNerdyChecked, setIsNerdyChecked] = useState<boolean>(false)
   const [isExplicitChecked, setisExplicitChecked] = useState<boolean>(false)
   const [filteredJokes, setFilteredJokes] = useState<Joke[]>([]);
-  // const [state, dispatch] = useReducer(reducer, initialState);
   const [state, dispatch] = useReducer(reducer, initialState);
 
 
@@ -86,6 +67,20 @@ const App: React.FC = () => {
     setQuotes(data.jokes)
   }, [])
 
+
+  function reducer(state: State, action: Action): State {
+    console.log("state function", state)
+    switch (action.type) {
+      case "INCREMENT":
+        return { ...state, count: state.count + 1 };
+      case "DECREMENT":
+        return { ...state, count: state.count - 1 };
+      case "FILTER":
+        return { ...state, filterArray: filteredJokes };
+      default:
+        throw new Error();
+    }
+  }
 
   const randomQuote = () => {
     let randomNumber = null

@@ -2,22 +2,6 @@
 import { useReducer} from 'react';
 import { Action } from '../App';
 
-// function ChildComponent({ dispatch }) {
-//   const handleIncrement = () => {
-//     dispatch({ type: ActionTypes.INCREMENT });
-//   };
-
-//   const handleDecrement = () => {
-//     dispatch({ type: ActionTypes.DECREMENT });
-//   };
-
-//   return (
-//     <div>
-//       <button onClick={handleIncrement}>+</button>
-//       <button onClick={handleDecrement}>-</button>
-//     </div>
-//   );
-// }
 
 interface ChildProps {
   dispatch: React.Dispatch<Action>;
@@ -34,7 +18,13 @@ function OutOfJokes({ dispatch }: ChildProps) {
     dispatch({ type: "DECREMENT" });
   };
 
+
+  const handleFilter = () => {
+    dispatch({ type: "FILTER" });
+  };
+
   // console.log("Child state", state)
+
 
   return (
     <div>
