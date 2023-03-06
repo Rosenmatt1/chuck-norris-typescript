@@ -28,7 +28,7 @@ export const MyContext = createContext<MyContextType>({
 });
 
 
-export const initialState = {
+const initialState = {
   count: 0,
   filterArray: [],
 };
@@ -46,7 +46,7 @@ interface DecrementAction {
   type: "DECREMENT";
 }
 
-export interface FilterJokes {
+interface FilterJokes {
   type: "FILTER";
 }
 
@@ -61,13 +61,12 @@ const App: React.FC = () => {
   const [filteredJokes, setFilteredJokes] = useState<Joke[]>([]);
   const [state, dispatch] = useReducer(reducer, initialState);
 
-    // console.log("filterArray:" filterArray)
+  // console.log("filterArray:" filterArray)
 
   useEffect(() => {
     //This is where the fetch would be
     setQuotes(data.jokes)
   }, [])
-
 
   function reducer(state: State, action: Action): State {
     // console.log("state function", state)
@@ -88,15 +87,12 @@ const App: React.FC = () => {
 
     if (filteredJokes.length > 0) {
       randomNumber = Math.floor(Math.random() * filteredJokes.length);
-    } else {
-      randomNumber = Math.floor(Math.random() * quotes.length);
-    }
-
-    if (filteredJokes.length > 0) {
       setQuote(filteredJokes[randomNumber].joke)
     } else {
+      randomNumber = Math.floor(Math.random() * quotes.length);
       setQuote(quotes[randomNumber].joke)
     }
+
     playSound()
   }
 
@@ -114,9 +110,17 @@ const App: React.FC = () => {
   //   filterJokes()
   // }
 
+    // let index = arr.findIndex(obj => obj.name === "Jane"); // Find index of object with name "Jane"
+  // if (index !== -1) {
+  //   arr.splice(index, 1); // Remove the object at the found index
+  // }
+
+
   useEffect(() => {
     if (isExplicitChecked && isNerdyChecked) {
       setFilteredJokes(quotes.filter(joke => joke.categories.includes('explicit') || joke.categories.includes('nerdy')))
+      // console.log(quote.id)
+      // setFilteredJokes(quotes)
       // console.log("BOTH!!!!", filteredJokes)
     }
     else if (isNerdyChecked) {
