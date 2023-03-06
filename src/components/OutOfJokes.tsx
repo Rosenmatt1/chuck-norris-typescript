@@ -1,37 +1,30 @@
 
-import { useReducer} from 'react';
-import { Action } from '../App';
+import { useState, useReducer } from 'react';
+import { Action, Joke, State } from '../App';
 
 
 interface ChildProps {
+  state: State;
   dispatch: React.Dispatch<Action>;
 }
 
 
-function OutOfJokes({ dispatch }: ChildProps) {
+function OutOfJokes({ state, dispatch }: ChildProps) {
+  console.log("CHild state", state.filterArray.length)
 
-  const handleIncrement = () => {
-    dispatch({ type: "INCREMENT" });
-  };
-
-  const handleDecrement = () => {
-    dispatch({ type: "DECREMENT" });
-  };
-
-
-  const handleFilter = () => {
-    dispatch({ type: "FILTER" });
-  };
-
-  // console.log("Child state", state)
+  // const handleFilter = () => {
+  //   dispatch({ type: "FILTER" });
+  // };
 
 
   return (
+    // <div>
+    //   <button onClick={handleFilter}>FILTER</button>
+    // </div>
     <div>
-      <button onClick={handleIncrement}>+</button>
-      <button onClick={handleDecrement}>-</button>
-      {/* <h1>Count: {state.count}</h1> */}
+      <h1>Jokes Left: {state.filterArray.length} </h1>
     </div>
+
   );
 }
 

@@ -7,7 +7,7 @@ import QuoteBox from "./components/QuoteBox";
 import OutOfJokes from "./components/OutOfJokes";
 
 
-interface Joke {
+export interface Joke {
   readonly id: number,
   joke: string,
   categories: string[],
@@ -28,14 +28,14 @@ export const MyContext = createContext<MyContextType>({
 });
 
 
-const initialState = {
+export const initialState = {
   count: 0,
   filterArray: [],
 };
 
-interface State {
+export interface State {
   count: number;
-  filterArray: Joke[],
+  filterArray: Joke[] | [],
 }
 
 interface IncrementAction {
@@ -46,7 +46,7 @@ interface DecrementAction {
   type: "DECREMENT";
 }
 
-interface FilterJokes {
+export interface FilterJokes {
   type: "FILTER";
 }
 
@@ -61,6 +61,7 @@ const App: React.FC = () => {
   const [filteredJokes, setFilteredJokes] = useState<Joke[]>([]);
   const [state, dispatch] = useReducer(reducer, initialState);
 
+    // console.log("filterArray:" filterArray)
 
   useEffect(() => {
     //This is where the fetch would be
@@ -69,7 +70,7 @@ const App: React.FC = () => {
 
 
   function reducer(state: State, action: Action): State {
-    console.log("state function", state)
+    // console.log("state function", state)
     switch (action.type) {
       case "INCREMENT":
         return { ...state, count: state.count + 1 };
@@ -113,13 +114,6 @@ const App: React.FC = () => {
   //   filterJokes()
   // }
 
-  // const handleNerdChange = (e: React.ChangeEvent<HTMLInputElement>) => {
-  //   e.preventDefault()
-  //   setIsNerdyChecked(e.target.checked)
-  //   // console.log(isNerdyChecked)
-  //   filterJokes()
-  // }
-
   useEffect(() => {
     if (isExplicitChecked && isNerdyChecked) {
       setFilteredJokes(quotes.filter(joke => joke.categories.includes('explicit') || joke.categories.includes('nerdy')))
@@ -159,9 +153,7 @@ const App: React.FC = () => {
           <i className="fas fa-fist-raised fist" style={{ fontSize: "3rem", color: "white" }}></i>
         </button>
 
-        <OutOfJokes dispatch={dispatch} />
-
-        <h1>Count: {state.count}</h1>
+        <OutOfJokes state={state} dispatch={dispatch} />
 
       </div>
     </MyContext.Provider>
