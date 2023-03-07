@@ -88,13 +88,24 @@ const App: React.FC = () => {
     if (filteredJokes.length > 0) {
       randomNumber = Math.floor(Math.random() * filteredJokes.length);
       setQuote(filteredJokes[randomNumber].joke)
+
+      let index = filteredJokes.findIndex(obj => obj.joke === quote)
+      console.log("Filtered Quotes Index:", index)
     } else {
       randomNumber = Math.floor(Math.random() * quotes.length);
       setQuote(quotes[randomNumber].joke)
+
+      let index = quotes.findIndex(obj => obj.joke === quote)
+      console.log("Quotes Index:", index)
     }
 
     playSound()
   }
+
+  // let index = arr.findIndex(obj => obj.name === "Jane"); // Find index of object with name "Jane"
+  // if (index !== -1) {
+  //   arr.splice(index, 1); // Remove the object at the found index
+  // }
 
 
   const sound: HTMLAudioElement = new Audio("upper-cut.mp3")
@@ -108,11 +119,6 @@ const App: React.FC = () => {
   //   setisExplicitChecked(!isExplicitChecked)
   //   // console.log(isExplicitChecked)
   //   filterJokes()
-  // }
-
-    // let index = arr.findIndex(obj => obj.name === "Jane"); // Find index of object with name "Jane"
-  // if (index !== -1) {
-  //   arr.splice(index, 1); // Remove the object at the found index
   // }
 
 
@@ -158,6 +164,7 @@ const App: React.FC = () => {
         </button>
 
         <OutOfJokes state={state} dispatch={dispatch} />
+        <h1>Jokes Left: {quotes.length} </h1>
 
       </div>
     </MyContext.Provider>

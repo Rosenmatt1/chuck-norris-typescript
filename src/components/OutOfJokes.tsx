@@ -20,7 +20,7 @@ function OutOfJokes({ state, dispatch }: ChildProps) {
   return (
     <div>
       <button onClick={handleFilter}>FILTER</button>
-        <h1>Jokes Left: {state.filterArray.length} </h1>
+        <h1>FilteredJokes Left: {state.filterArray.length} </h1>
     </div>
   );
 }
