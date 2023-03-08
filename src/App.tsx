@@ -81,36 +81,38 @@ const App: React.FC = () => {
   }
 
 
+  useEffect(() => {
+    if (filteredJokes.length > 0) {
+      const index = filteredJokes.findIndex(obj => obj.joke === quote);
+      console.log("Filtered Quotes Index:", index)
+
+      if (index !== -1) {
+        filteredJokes.splice(index, 1);
+      }
+    } else {
+      const index = quotes.findIndex(obj => obj.joke === quote);
+      console.log("Quotes Index:", index)
+      
+      if (index !== -1) {
+        quotes.splice(index, 1); 
+      }
+    }
+  }, [quote]);
+
+
   const randomQuote = () => {
     let randomNumber = null
-    let index = null
 
     if (filteredJokes.length > 0) {
       randomNumber = Math.floor(Math.random() * filteredJokes.length);
       console.log("FILTERED LENGTH", filteredJokes.length)
       setQuote(filteredJokes[randomNumber].joke)
-
-      index = filteredJokes.findIndex(obj => obj.joke === quote)
-      console.log("Filtered Quotes Index:", index)
-
-      if (index !== -1) {
-        filteredJokes.splice(index, 1); 
-      }
-
     } else {
       setIsNerdyChecked(false)
       setisExplicitChecked(false)
       randomNumber = Math.floor(Math.random() * quotes.length);
       setQuote(quotes[randomNumber].joke)
-
-      index = quotes.findIndex(obj => obj.joke === quote)
-      console.log("Quotes Index:", index)
-
-      if (index !== -1) {
-        quotes.splice(index, 1); 
-      }
     }
-
     playSound()
   }
 
