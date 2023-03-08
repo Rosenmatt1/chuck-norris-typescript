@@ -16,7 +16,6 @@ export interface Joke {
 // categories: string[],
 // categories: ("nerdy" | "explicit")[] | ["nerdy", "explicit"] | [];
 
-
 export interface MyContextType {
   quote: string;
   // setQuotes: React.Dispatch<React.SetStateAction<number>>;
@@ -61,7 +60,6 @@ const App: React.FC = () => {
   const [filteredJokes, setFilteredJokes] = useState<Joke[]>([]);
   const [state, dispatch] = useReducer(reducer, initialState);
 
-  // console.log("filterArray:" filterArray)
 
   useEffect(() => {
     //This is where the fetch would be
@@ -82,31 +80,39 @@ const App: React.FC = () => {
     }
   }
 
+
   const randomQuote = () => {
     let randomNumber = null
+    let index = null
 
     if (filteredJokes.length > 0) {
       randomNumber = Math.floor(Math.random() * filteredJokes.length);
+      console.log("FILTERED LENGTH", filteredJokes.length)
       setQuote(filteredJokes[randomNumber].joke)
 
-      let index = filteredJokes.findIndex(obj => obj.joke === quote)
+      index = filteredJokes.findIndex(obj => obj.joke === quote)
       console.log("Filtered Quotes Index:", index)
+
+      if (index !== -1) {
+        filteredJokes.splice(index, 1); 
+      }
+
     } else {
+      setIsNerdyChecked(false)
+      setisExplicitChecked(false)
       randomNumber = Math.floor(Math.random() * quotes.length);
       setQuote(quotes[randomNumber].joke)
 
-      let index = quotes.findIndex(obj => obj.joke === quote)
+      index = quotes.findIndex(obj => obj.joke === quote)
       console.log("Quotes Index:", index)
+
+      if (index !== -1) {
+        quotes.splice(index, 1); 
+      }
     }
 
     playSound()
   }
-
-  // let index = arr.findIndex(obj => obj.name === "Jane"); // Find index of object with name "Jane"
-  // if (index !== -1) {
-  //   arr.splice(index, 1); // Remove the object at the found index
-  // }
-
 
   const sound: HTMLAudioElement = new Audio("upper-cut.mp3")
 
@@ -114,19 +120,9 @@ const App: React.FC = () => {
     sound.play()
   }
 
-  // const handlExplicitChange = (e: React.ChangeEvent<HTMLInputElement>) => {
-  //   e.preventDefault()
-  //   setisExplicitChecked(!isExplicitChecked)
-  //   // console.log(isExplicitChecked)
-  //   filterJokes()
-  // }
-
-
   useEffect(() => {
     if (isExplicitChecked && isNerdyChecked) {
       setFilteredJokes(quotes.filter(joke => joke.categories.includes('explicit') || joke.categories.includes('nerdy')))
-      // console.log(quote.id)
-      // setFilteredJokes(quotes)
       // console.log("BOTH!!!!", filteredJokes)
     }
     else if (isNerdyChecked) {
@@ -163,8 +159,8 @@ const App: React.FC = () => {
           <i className="fas fa-fist-raised fist" style={{ fontSize: "3rem", color: "white" }}></i>
         </button>
 
-        <OutOfJokes state={state} dispatch={dispatch} />
-        <h1>Jokes Left: {quotes.length} </h1>
+        {/* <OutOfJokes state={state} dispatch={dispatch} /> */}
+        <h1>Jokes Left: {isExplicitChecked || isNerdyChecked ? filteredJokes.length : quotes.length} </h1>
 
       </div>
     </MyContext.Provider>
