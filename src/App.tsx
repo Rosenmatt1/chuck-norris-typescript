@@ -87,14 +87,22 @@ const App: React.FC = () => {
       console.log("Filtered Quotes Index:", index)
 
       if (index !== -1) {
-        filteredJokes.splice(index, 1);
+        const newFilteredJokes = [
+          ...filteredJokes.slice(0, index),
+          ...filteredJokes.slice(index + 1)
+        ];
+        setFilteredJokes(newFilteredJokes);
       }
     } else {
       const index = quotes.findIndex(obj => obj.joke === quote);
       console.log("Quotes Index:", index)
-      
+
       if (index !== -1) {
-        quotes.splice(index, 1); 
+        const newQuotes = [
+          ...quotes.slice(0, index),
+          ...quotes.slice(index + 1)
+        ];
+        setQuotes(newQuotes);
       }
     }
   }, [quote]);
